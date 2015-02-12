@@ -1,0 +1,53 @@
+<section data-ng-controller="OrganizationsController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="organization.name"></h1>
+	</div>
+	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == organization.user._id))">
+		<a class="btn btn-primary" href="/#!/organizations/{{organization._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<div class="row">
+		<div class="col-xs-4"><label>Total Head Count</label></div>
+		<div class="col-xs-6"><span data-ng-bind="organization.totalHeadCount"></span> </div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4"><label>Billable Head Count</label></div>
+		<div class="col-xs-8"><span data-ng-bind="organization.billableHeadCount"></span> </div>
+	</div>
+	<div class="row">
+		<div class="col-xs-4"><label>Bench Head Count</label></div>
+		<div class="col-xs-8"><span data-ng-bind="organization.benchHeadCount"></span> </div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3"><label>Projects</label></div>
+		<div class="col-xs-9">
+			<ul class="col-xs-offset-1">
+				<li data-ng-repeat="project in organization.projects">
+					<span data-ng-bind="project.name"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-3"><label>Members</label></div>
+		<div class="col-xs-9">
+			<ul class="col-xs-offset-1">
+				<li data-ng-repeat="member in organization.members">
+					<span data-ng-bind="member.firstName"></span> <span data-ng-bind="member.lastName"></span>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<small>
+		<em class="text-muted">
+			Posted on
+			<span data-ng-bind="organization.created | date:'mediumDate'"></span>
+			by
+			<span data-ng-bind="organization.user.displayName"></span>
+		</em>
+	</small>
+</section>

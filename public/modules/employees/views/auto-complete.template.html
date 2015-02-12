@@ -1,0 +1,25 @@
+<div class="tags-wrapper">
+    <div id="tagsList" class="tags-cloud">
+        <div class="tags">
+            <ul class="tag-list">
+                <li class="tag-item"
+                    ng-repeat="selectedTag in selectedTags track by $index" >
+                    <span class="tagName">{{selectedTag.name}}</span>
+                    <a ng-click="removeTag($index)" class=" remove-button">×</a>
+                </li>
+            </ul>
+        </div>
+
+        <!--<span ng-repeat="selectedTag in selectedTags track by $index" class="tag">
+            <span class="tagName">{{selectedTag.name}}</span>
+            <span>&nbsp;<b ng-click="removeTag($index)" class="glyphicon glyphicon-remove"></b></span>
+        </span>-->
+        <div class="row"><div class="col-md-12">
+        <input type="text" class="form-control" placeholder="Add new project"  ng-keydown="checkKeyDown($event)" ng-model="searchText.name" value="searchText.name" ng-change="search()"/>
+        </div></div>
+    </div>
+    <ul id="suggestions" class="suggestions-list">
+        <li ng-repeat="suggestion in suggestions" class="blockSpan" ng-click="addToSelectedTags($index)" ng-mouseover="$parent.selectedIndex=$index" ng-class="{active : selectedIndex===$index}"><a href="javascript:void(0)";>{{suggestion.name}}</a></li>
+    </ul>
+</div>
+<!--<input type="text" ng-model="selectedTag.name" ng-show="editMode" />ng-show="!editMode"-->

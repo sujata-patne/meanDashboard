@@ -1,0 +1,91 @@
+.panel-wrapper {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+
+.panel-wrapper .panel-title {
+    border-bottom: 1px solid #d7d7d7;
+    color: #666;
+    font-size: 14px;
+    font-weight: 200;
+    padding: 7px 10px 4px;
+}
+
+.panel-wrapper .panel-stage {
+
+    overflow: hidden;
+    padding: 5px 10px;
+    position: relative;
+}
+
+.panel-wrapper .panel-notes {
+    background: #fbfbfb;
+    border-top: 1px solid #e2e2e2;
+    color: gray;
+    font-size: 12px;
+    padding: 8px 10px 5px;
+}
+
+.panel-wrapper  .red-days{
+    font-size:24pt;
+    color:red;
+    text-align: center;
+    padding:16px;
+
+}
+
+.panel-wrapper .red{
+    background: red;
+    color: white;
+    font-weight: bold;
+
+
+}
+
+.panel-wrapper .grey{
+    background: #fbfbfb;
+
+}
+
+.panel-wrapper .white{
+    background: white;
+
+}
+
+.tag-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.tag-item {
+    margin: 2px;
+    padding: 0 5px;
+    display: inline-block;
+    float: left;
+    font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 26px;
+    line-height: 25px;
+    border: 1px solid #acacac;
+    border-radius: 3px;
+    background: -webkit-linear-gradient(top, #f0f9ff 0%, #cbebff 47%, #a1dbff 100%);
+    background: linear-gradient(to bottom, #f0f9ff 0%, #cbebff 47%, #a1dbff 100%);
+}
+.tag-item.selected {
+    background: -webkit-linear-gradient(top, #febbbb 0%, #fe9090 45%, #ff5c5c 100%);
+    background: linear-gradient(to bottom, #febbbb 0%, #fe9090 45%, #ff5c5c 100%);
+}
+.tag-item .remove-button {
+    margin: 0 0 0 5px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    vertical-align: middle;
+    font: bold 16px Arial, sans-serif;
+    color: #585858;
+}
+.tag-item .remove-button:active {
+    color: red;
+}

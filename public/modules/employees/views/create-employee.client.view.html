@@ -1,0 +1,67 @@
+<section data-ng-controller="EmployeesController">
+    <div class="page-header">
+        <h1>New Employee</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="create()" novalidate>
+            <fieldset>
+                <div class="form-group">
+                    <label class="control-label" for="firstName">First Name</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="firstName" id="firstName" class="form-control" placeholder="First Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="lastName">Last Name</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="lastName" id="lastName" class="form-control" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="yearExp">Experience in Years</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="yearExp" id="yearExp" class="form-control" placeholder="Experience in years" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="role">Role</label>
+                    <div class="controls" id="role">
+                        <select ng-model="role" ng-options="role for role in roles"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="skills">Skills</label>
+                    <div class="controls">
+                        <!--<input type="text" data-ng-model="skills" id="skills" class="form-control" placeholder="Space Separated Skills" required>-->
+                        <tags-input ng-model="skills" id="skills"  display-property="name"></tags-input>
+                        (Press tab to convert text to tag)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="organization">Organization</label>
+                    <div class="controls" id="organization">
+                        <select ng-model="belongsTo"
+                                ng-options="org._id as org.name for org in organizations "></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="projects">Projects</label>
+                    <div class="controls" id="projects">
+                        <select ng-model="worksFor"
+                                ng-options="project._id as project.name for project in projects"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="billable">Billable</label>
+                    <input type="checkbox" value="true" class="controls" id="billable" ng-model="billable">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+</section>
