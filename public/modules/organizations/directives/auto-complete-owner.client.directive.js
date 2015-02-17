@@ -1,44 +1,55 @@
-angular.module('employees')
-	.directive('autoComplete',['$http',function($http){
+'use strict';
+
+angular.module('organizations')
+	.directive('autoCompleteOwner', ['$http', function($http) {
 		return {
 			restrict: 'AE',
 			scope:{
 				selectedTags:'=model'
 			},
-			templateUrl:'modules/employees/views/auto-complete.template.html',
+			templateUrl:'modules/organizations/views/auto-complete-owner.template.html',
 			link: function postLink(scope, element, attrs) {
+
 				scope.editMode = false;
 
 				scope.suggestions=[];
 
-				scope.selectedTags=[];
+				//scope.selectedTags=[];
 
 				scope.selectedIndex=-1;
 
 				scope.removeTag=function(index){
-					scope.selectedTags.splice(index,1);
+					//scope.selectedTags.splice(index,1);
+					scope.selectedTags == null;
 					scope.editMode = false;
 				}
 
 				scope.search=function(){
-					console.log(attrs.url)
-					$http.get(attrs.url+'/'+scope.searchText.name).success(function(data){
+					$http.get(attrs.url+'/'+scope.searchText.firstName).success(function(data){
 						/*if(data.indexOf(scope.searchText)===-1){
-							data.unshift(scope.searchText.name);
-						}*/
-
+						 data.unshift(scope.searchText.firstName);
+						 }*/
 						scope.suggestions=data;
 						scope.selectedIndex=-1;
 					});
 				}
 
 				scope.addToSelectedTags=function(index){
-					if(scope.selectedTags.indexOf(scope.suggestions[index])===-1 || scope.selectedTags.length < 0){
-						scope.editMode = true;
+					/*if(scope.selectedTags.indexOf(scope.suggestions[index])===-1){
+
+						/*for(var i = 0; i < scope.suggestions.length; i++) {
+						 if (scope.selectedTags[i] != scope.suggestions[index]) {
+						 scope.selectedTags.push(scope.suggestions[index]);
+						 }
+						 }*/
+						/*scope.editMode = true;
 						scope.selectedTags.push(scope.suggestions[index]);
 						scope.searchText='';
 						scope.suggestions=[];
-					}
+					}*/
+					scope.selectedTags = scope.suggestions[index];
+					scope.searchText='';
+					scope.suggestions=[];
 				}
 
 				scope.checkKeyDown=function(event){

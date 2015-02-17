@@ -19,6 +19,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="control-label" for="role">Gender</label>
+                    <div class="controls" id="gender">
+                        <select ng-model="employee.gender" class="form-control" ng-options="gender for gender in genders track by gender"></select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label" for="yearExp">Experience in Years</label>
                     <div class="controls">
                         <input type="text" data-ng-model="employee.yearExp" id="yearExp" class="form-control" placeholder="Experience in years" required>
@@ -36,14 +42,15 @@
                 <div class="form-group">
                     <label class="control-label" for="organization">Organization</label>
                     <div class="controls" id="organization">
-                        <select class="form-control" ng-model="employee.belongsTo" ng-options="org._id as org.name for org in organizations track by org._id"></select>
+                        <select class="form-control" ng-model="employee.belongsTo"
+                                ng-options="org._id as org.name for org in organizations track by org._id" ng-change="getProjectUrl(this)"></select>
                         <!--<editable-label data-ng-model="organizations.name" ></editable-label>-->
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="projects">Projects</label>
                     <div class="controls" id="projects">
-                        <div auto-complete url="employees/projects" model="employee.worksFor" ></div>
+                        <div auto-complete url="{{projectURL}}"  model="employee.worksFor" ></div>
                         <!--<select ng-model="employee.worksFor"
                                 ng-options="project._id as project.name for project in projects track by project._id ">
                         </select>-->
@@ -52,7 +59,7 @@
                 <div class="form-group">
                     <label class="control-label" for="role">Role</label>
                     <div class="controls" id="role">
-                        <select class="form-control" ng-model="employee.role" ng-options="role as role for role in roles "></select>
+                        <select class="form-control" ng-model="employee.role" ng-options="role as role for role in roles track by role"></select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -61,14 +68,14 @@
                         <input type="checkbox" id="billable" ng-model="employee.billable">
                     </div>
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="control-label" for="billable">Upload image</label>
                     <div class="controls">
                         <input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
                         <span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
                         <img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
                     </div>
-                </div>
+                </div>-->
 
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">

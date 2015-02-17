@@ -43,6 +43,10 @@ var EmployeeSchema = new Schema({
 		type:String,
 		enum:['Junior Software Developer','Software Developer','Senior Software Developer','Junior QA Engineer','QA Engineer','Senior QA Engineer','Tech Lead','QA Lead','Engineering Manager','QA Manager','Architect','BU Head']
 	},
+	gender:{
+		type:String,
+		enum:['Male','Female']
+	},
 	billable:{
 		type:Boolean
 	},

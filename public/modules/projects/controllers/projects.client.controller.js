@@ -1,8 +1,8 @@
 'use strict';
 
 // Projects controller
-angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects','Organizations',
-	function($scope, $stateParams, $location, Authentication, Projects,Organizations) {
+angular.module('projects').controller('ProjectsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Projects','Organizations','Employees',
+	function($scope, $stateParams, $location, Authentication, Projects, Organizations, Employees) {
 		$scope.authentication = Authentication;
 		$scope.organizations = Organizations.query();
 
@@ -56,11 +56,13 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
+
 		};
 
 		// Find a list of Projects
 		$scope.find = function() {
 			$scope.projects = Projects.query();
+			//console.log($scope.projects);
 		};
 
 		// Find existing Project
@@ -68,8 +70,12 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			$scope.project = Projects.get({ 
 				projectId: $stateParams.projectId
 			});
+			$scope.project.$promise.then(function (project){
+				$scope.owners = project.members;
+			});
+
 			//$scope.organizations = Organizations.query();
-			console.log($scope.project)
+			console.log($scope.owners)
 		};
 	}
 ]);

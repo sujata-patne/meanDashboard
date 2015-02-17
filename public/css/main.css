@@ -7,9 +7,9 @@
 
 .panel-wrapper .panel-title {
     border-bottom: 1px solid #d7d7d7;
-    color: #666;
+    color: gray;
     font-size: 14px;
-    font-weight: 200;
+    font-weight: bold;
     padding: 7px 10px 4px;
 }
 

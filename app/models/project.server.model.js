@@ -54,6 +54,10 @@ var ProjectSchema = new Schema({
 		type:Number,
 		default:0
 	},
+	redDays:{
+		type:Number,
+		default:0
+	},
 	created: {
 		type: Date,
 		default: Date.now

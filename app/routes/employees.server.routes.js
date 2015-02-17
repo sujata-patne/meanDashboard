@@ -17,11 +17,11 @@ module.exports = function(app) {
 	app.route('/employees/organization/:organization')
 		.get(employees.getOrganization);
 
-	app.route('/employees/projects/:project')
-		.get(employees.getProjects);
+	app.route('/employees/projects/:organizationID/:project')
+		.get(employees.getProjectsByOrganization);
 
 	// Finish by binding the Employee middleware
 	app.param('employeeId', employees.employeeByID);
-	app.param('organization',employees.organizationByName);
-	app.param('project',employees.projectsByName);
+	app.param('organizationID',employees.organizationByID);
+	app.param('project',employees.getProjectsByOrganization);
 };

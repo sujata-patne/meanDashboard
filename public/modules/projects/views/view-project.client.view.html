@@ -1,44 +1,87 @@
 <section data-ng-controller="ProjectsController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1 data-ng-bind="project.name"></h1>
+		<a data-ng-href="#!/projects/{{project._id}}" ><h1 data-ng-bind="project.name"></h1></a>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == project.user._id))">
-		<a class="btn btn-primary" href="/#!/projects/{{project._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<div class="row">
-		<div class="col-xs-4"><label>Total Head Count</label></div>
-		<div class="col-xs-6"><span data-ng-bind="project.totalHeadCount"></span> </div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4"><label>Billable Head Count</label></div>
-		<div class="col-xs-8"><span data-ng-bind="project.billableHeadCount"></span> </div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4"><label>Bench Head Count</label></div>
-		<div class="col-xs-8"><span data-ng-bind="project.benchHeadCount"></span> </div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4"><label>Organization</label></div>
-		<div class="col-xs-8">
-			<span data-ng-bind="project.belongsTo.name"></span>
+	<div class="panel-wrapper">
+		<div class="panel-title">
+			<div class="row">
+				<div class="col-xs-9 col-md-9">&nbsp;</div>
+				<div class="col-xs-1 col-md-1">
+					<a class="btn btn-primary" href="/#!/projects/{{project._id}}/edit">
+						<i class="glyphicon glyphicon-edit"></i>
+						Edit
+					</a>
+				</div>
+				<div class="col-xs-2 col-md-2">
+					<a class="btn btn-primary" data-ng-click="remove();">
+						<i class="glyphicon glyphicon-trash"></i>
+						Delete
+					</a>
+				</div>
+			</div>
 		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-xs-3"><label>Members</label></div>
-		<div class="col-xs-9">
-			<ul class="col-xs-offset-1">
-				<li data-ng-repeat="member in project.members">
-					<span data-ng-bind="member.firstName"></span> <span data-ng-bind="member.lastName"></span>
-				</li>
-			</ul>
+		<div class="panel-stage">
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="panel-wrapper">
+						<div class="panel-title">Start Date</div>
+						<div class="panel-stage">{{project.startDate | date:'longDate'}}</div>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="panel-wrapper">
+						<div class="panel-title">End Date/Ongoing</div>
+						<div class="panel-stage">{{project.belongsTo.name}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="panel-wrapper">
+						<div class="panel-title">Owners</div>
+						<div class="panel-stage">{{project.owner.firstName}} {{project.owner.lastName}}</div>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="panel-wrapper">
+						<div class="panel-title">Organization</div>
+						<div class="panel-stage">{{project.belongsTo.name}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<div class="panel-wrapper">
+						<div class="panel-title">Total No. of People</div>
+						<div class="panel-stage">{{project.totalHeadCount}}</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="panel-wrapper">
+						<div class="panel-title">Billable Headcount</div>
+						<div class="panel-stage">{{project.billableHeadCount}}</div>
+					</div>
+				</div>
+				<div class="col-xs-4">
+					<div class="panel-wrapper">
+						<div class="panel-title">Bench Head Count</div>
+						<div class="panel-stage">{{project.benchHeadCount}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="panel-wrapper">
+						<div class="panel-title"><label>Members</label></div>
+						<div class="panel-stage">
+							<span data-ng-repeat="member in project.members">
+								{{member.firstName}} {{member.lastName}}
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
 	<small>
 		<em class="text-muted">
 			Posted on

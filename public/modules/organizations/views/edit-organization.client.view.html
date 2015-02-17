@@ -12,6 +12,15 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="control-label" for="owner">Owner</label>
+                    <div class="controls" id="owner">
+                        <!--<div auto-complete-owner url="organizations/owner" model="organization.owner" ></div>-->
+                        <select ng-model="organization.owner" class="form-control"
+                                ng-options="owner._id as owner.firstName +' '+ owner.lastName for owner in owners track by owner._id ">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label" for="totalHeadCount">Total Head Count</label>
                     <div class="controls">
                         <input type="text" data-ng-model="organization.totalHeadCount" id="totalHeadCount" class="form-control" placeholder="Total Headcount" required>

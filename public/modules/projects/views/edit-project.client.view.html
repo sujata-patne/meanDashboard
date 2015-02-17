@@ -3,12 +3,20 @@
         <h1>Edit Project</h1>
     </div>
     <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+        <form class="form-horizontal" data-ng-submit="update()" >
             <fieldset>
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
                     <div class="controls">
                         <input type="text" data-ng-model="project.name" id="name" class="form-control" placeholder="Name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="owner">Owner</label>
+                    <div class="controls" id="owner">
+                        <select ng-model="project.owner" class="form-control"
+                                ng-options="owner._id as owner.firstName +' '+ owner.lastName for owner in owners track by owner._id ">
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -20,9 +28,13 @@
                 <div class="form-group">
                     <label class="control-label" for="endDate">End Date</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="project.endDate" id="endDate" class="form-control" placeholder="yyyy-MM-dd" >
+                        <input type="text" data-ng-model="project.endDate" id="endDate" ng-show="!project.ongoing" class="form-control" placeholder="yyyy-MM-dd" >
+                    </div>
+                    <div class="controls" for="ongoingCheckBox">
+                        <input type="checkbox" data-ng-model="project.ongoing" id="ongoingCheckBox"> <b>On Going</b>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="control-label" for="totalHeadCount">Total Head Count</label>
                     <div class="controls">
@@ -42,9 +54,16 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="control-label" for="redDays">Red Days</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="project.redDays" id="redDays" class="form-control" placeholder="Red Days" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label class="control-label" for="organization">Organization</label>
                     <div class="controls" id="organization">
-                        <select ng-model="project.belongsTo" ng-options="org._id as org.name for org in organizations"></select>
+                        <select ng-model="project.belongsTo" class="form-control" ng-options="org._id as org.name for org in organizations"></select>
                     </div>
                 </div>
                 <div class="form-group">

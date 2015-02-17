@@ -2,7 +2,68 @@
     <div class="page-header">
         <h1>Projects</h1>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" data-ng-model="searchText.name"/>
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" ng-click="searchProject()">
+                            <span class="glyphicon glyphicon-filter"></span> Filter
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="list-group">
+        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+        <div class="row">
+            <div ng-repeat="project in projects | filter:searchText" class="col-md-4">
+                <div class="panel-wrapper">
+                    <div class="panel-title">
+                        <a data-ng-href="#!/projects/{{project._id}}" >{{project.name}}</a>
+                    </div>
+                    <div class="panel-stage">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="panel-wrapper">
+                                    <div class="panel-title">Owners</div>
+                                    <div class="panel-stage">{{project.owner.firstName}} {{project.owner.firstName}}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="panel-wrapper">
+                                    <div class="panel-title">Organization</div>
+                                    <div class="panel-stage">{{project.belongsTo.name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="panel-wrapper">
+                                    <div class="panel-title">Total No. of People</div>
+                                    <div class="panel-stage">{{project.totalHeadCount}}</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="panel-wrapper">
+                                    <div class="panel-title">Billable Headcount</div>
+                                    <div class="panel-stage">{{project.billableHeadCount}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!projects.$resolved || projects.length">
+            No Projects yet, why don't you <a href="/#!/projects/create">create one</a>?
+        </div>
+    </div>
+</section>
+
+    <!--<div class="list-group">
         <a data-ng-repeat="project in projects" data-ng-href="#!/projects/{{project._id}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
@@ -12,8 +73,5 @@
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="project.name"></h4>
         </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!projects.$resolved || projects.length">
-    	No Projects yet, why don't you <a href="/#!/projects/create">create one</a>?
-    </div>
-</section>
+    </div>-->
+

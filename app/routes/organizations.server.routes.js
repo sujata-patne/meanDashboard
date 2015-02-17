@@ -14,7 +14,10 @@ module.exports = function(app) {
 		.put(users.requiresLogin, organizations.hasAuthorization, organizations.update)
 		.delete(users.requiresLogin, organizations.hasAuthorization, organizations.delete);
 
+	app.route('/organizations/owner/:owner')
+		.get(organizations.getOwner);
+
 	// Finish by binding the Organization middleware
 	app.param('organizationId', organizations.organizationByID);
-
+	app.param('owner',organizations.ownerByName);
 };

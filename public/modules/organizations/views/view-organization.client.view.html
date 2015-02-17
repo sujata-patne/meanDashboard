@@ -11,35 +11,63 @@
 		</a>
 	</div>
 	<div class="row">
-		<div class="col-xs-4"><label>Total Head Count</label></div>
-		<div class="col-xs-6"><span data-ng-bind="organization.totalHeadCount"></span> </div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4"><label>Billable Head Count</label></div>
-		<div class="col-xs-8"><span data-ng-bind="organization.billableHeadCount"></span> </div>
-	</div>
-	<div class="row">
-		<div class="col-xs-4"><label>Bench Head Count</label></div>
-		<div class="col-xs-8"><span data-ng-bind="organization.benchHeadCount"></span> </div>
-	</div>
-	<div class="row">
-		<div class="col-xs-3"><label>Projects</label></div>
-		<div class="col-xs-9">
-			<ul class="col-xs-offset-1">
-				<li data-ng-repeat="project in organization.projects">
-					<span data-ng-bind="project.name"></span>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-xs-3"><label>Members</label></div>
-		<div class="col-xs-9">
-			<ul class="col-xs-offset-1">
-				<li data-ng-repeat="member in organization.members">
-					<span data-ng-bind="member.firstName"></span> <span data-ng-bind="member.lastName"></span>
-				</li>
-			</ul>
+		<div class="col-xs-12 col-md-12">
+			<div class="panel-wrapper">
+				<div class="panel-title">
+					{{organization.name}}
+				</div>
+				<div class="panel-stage">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="panel-wrapper">
+								<div class="panel-title">
+									Billable Vs Bench
+								</div>
+								<div class="panel-stage">
+									<img src="images\area-chart.f713239c.png" class="img-responsive">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="panel-wrapper">
+								<div class="panel-title">
+									Projects
+								</div>
+								<div class="panel-stage">
+									<span data-ng-repeat="project in organization.projects">
+										<span class="badge" data-ng-bind="project.name"></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="panel-wrapper">
+								<div class="panel-title">
+									<div class="row">
+										<div class="col-xs-4"><label>Total Head Count</label></div>
+										<div class="col-xs-4"><label>Billable Head Count</label></div>
+										<div class="col-xs-4"><label>Bench Head Count</label></div>
+									</div>
+								</div>
+								<div class="panel-stage">
+									<div class="row">
+										<div class="col-xs-4"><span data-ng-bind="organization.totalHeadCount"></span> </div>
+										<div class="col-xs-4"><span data-ng-bind="organization.billableHeadCount"></span> </div>
+										<div class="col-xs-4"><span data-ng-bind="organization.benchHeadCount"></span> </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-notes">
+					Owned by {{organization.owner.firstName}} {{organization.owner.lastName}}
+				</div>
+			</div>
 		</div>
 	</div>
 	<small>

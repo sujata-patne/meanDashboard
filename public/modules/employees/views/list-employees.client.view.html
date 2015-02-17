@@ -6,20 +6,97 @@
         <div class="col-md-12">
             <form>
                 <div class="input-group input-group-lg">
-                    <input type="text" class="form-control"/>
-
+                    <input type="text" class="form-control" data-ng-model="searchText.firstName"/>
                     <div class="input-group-btn">
-                        <button class="btn btn-default" ng-click="searchEmployee()">
+                        <button class="btn btn-default">
                             <span class="glyphicon glyphicon-filter"></span> Filter
                         </button>
+                        <a class="btn btn-primary" href="/#!/employees/create">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <div class="row"><div class="col-md-12">&nbsp;</div></div>
+
     <div class="list-group">
-        <a data-ng-repeat="employee in employees" data-ng-href="#!/employees/{{employee._id}}" class="list-group-item">
+        <div class="row"><div class="col-md-12">&nbsp;</div></div>
+        <div class="row">
+            <div ng-repeat="employee in employees | filter:searchText" class="col-md-6">
+                <div class="panel-wrapper">
+                    <div class="panel-title">
+                        <a data-ng-href="#!/employees/{{employee._id}}" >{{employee.firstName}} {{employee.lastName}}</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="badge" ng-show="employee.billable">Billable</span>
+                    </div>
+                    <div class="panel-stage">
+                        <div class="row">
+                            <div class="col-xs-4 col-md-4">
+                                <div class="panel-wrapper">
+                                    <div class="panel-stage grey">
+                                        <img src="/images/profile-male.png" ng-show="employee.gender == 'Male'"
+                                             class="img-responsive img-circle white">
+                                        <img src="/images/profile-female.jpg" ng-show="employee.gender == 'Female'"
+                                             class="img-responsive img-circle white">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-8 col-md-8">
+                                <div class="panel-wrapper">
+                                    <div class="panel-title">
+                                        Organization/BU
+                                    </div>
+                                    <div class="panel-stage">
+                                        {{employee.belongsTo.name}}
+                                    </div>
+                                </div>
+                                <div class="panel-wrapper">
+                                    <div class="panel-title">
+                                        Role & Experience
+                                    </div>
+                                    <div class="panel-stage">
+                                        <span class="badge">{{employee.role}}</span> with
+                                        <span class="badge">{{employee.yearExp}}</span> year(s)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-12">
+                                    <div class="panel-wrapper">
+                                        <div class="panel-title">
+                                            Skills
+                                        </div>
+                                        <div class="panel-stage">
+                                            <span data-ng-repeat="skill in employee.skills">
+                                                <span class="badge" data-ng-bind="skill.name"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="panel-wrapper">
+                                        <div class="panel-title">
+                                            Projects
+                                        </div>
+                                        <div class="panel-stage">
+                                        <span data-ng-repeat="project in employee.worksFor">
+                                            <span class="badge" data-ng-bind="project.name"></span>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!employees.$resolved || employees.length">
+            No Employees yet, why don't you <a href="/#!/employees/create">create one</a>?
+        </div>
+    </div>
+</section>
+<!--<div ng-repeat="employee in employees | filter:searchText">
+        <a data-ng-href="#!/employees/{{employee._id}}" class="list-group-item">
 			<small class="list-group-item-text">
 				Posted on
 				<span data-ng-bind="employee.created | date:'medium'"></span>
@@ -28,8 +105,4 @@
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="employee.firstName"></h4>
         </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!employees.$resolved || employees.length">
-    	No Employees yet, why don't you <a href="/#!/employees/create">create one</a>?
-    </div>
-</section>
+      </div>-->

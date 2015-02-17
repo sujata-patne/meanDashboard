@@ -18,22 +18,32 @@ angular.module('employees').controller('EmployeesController', ['$scope', '$state
 			'Architect',
 			'BU Head'
 		];
+		$scope.genders = ['Male', 'Female'];
 		$scope.organizations = Organizations.query();
-		$scope.projects = Projects.query();
+		//$scope.projects = Projects.query();
+
+		$scope.getProjectUrl = function(org){
+			//$scope.employee.worksFor = [];
+			$scope.projectURL = "employees/projects/"+org.belongsTo;
+		};
 		// Create new Employee
 		$scope.create = function() {
 			// Create new Employee object
+			var projData = [];
+			this.worksFor.forEach(function(project){
+				projData.push(project._id);
+			});
 			var employee = new Employees ({
 				firstName: this.firstName,
 				lastName: this.lastName,
 				skills: this.skills,
 				role: this.role,
 				belongsTo: this.belongsTo,
-				worksFor: this.worksFor,
+				worksFor: projData,
 				yearExp:this.yearExp,
-				billable:this.billable
+				billable:this.billable,
+				gender:this.gender
 			});
-
 			// Redirect after save
 			employee.$save(function(response) {
 				$location.path('employees/' + response._id);
@@ -42,6 +52,7 @@ angular.module('employees').controller('EmployeesController', ['$scope', '$state
 				$scope.name = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
+				console.log($scope.error)
 			});
 		};
 
@@ -87,11 +98,14 @@ angular.module('employees').controller('EmployeesController', ['$scope', '$state
 			$scope.employee.$promise.then(function (employee) {
 				var indexOf = $scope.roles.indexOf(employee.role);
 				employee.role = $scope.roles[indexOf];
+
+				var indexOfGender = $scope.genders.indexOf(employee.gender);
+				employee.gender = $scope.genders[indexOfGender];
+
+				$scope.projectURL = "employees/projects/"+$scope.employee.belongsTo._id;
 			});
 			//$scope.organizations = Organizations.query();
 			//$scope.projects = Projects.query();
-			console.log($scope.employee);
-
 		};
 	}
 ]);

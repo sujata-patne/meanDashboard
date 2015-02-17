@@ -22,7 +22,10 @@
 					<div class="col-xs-4 col-md-4">
 						<div class="panel-wrapper">
 							<div class="panel-stage grey">
-								<img src="images/profile-male.png" class="img-responsive img-circle white">
+								<img src="/images/profile-male.png" ng-show="employee.gender == 'Male'"
+									 class="img-responsive img-circle white">
+								<img src="/images/profile-female.jpg" ng-show="employee.gender == 'Female'"
+									 class="img-responsive img-circle white">
 							</div>
 						</div>
 					</div>
@@ -41,7 +44,7 @@
 							</div>
 							<div class="panel-stage">
 								<span class="badge">{{employee.role}}</span> with
-								<span class="badge">{{employee.yearExp}}</span>
+								<span class="badge">{{employee.yearExp}}</span> year(s)
 							</div>
 						</div>
 						<div class="panel-wrapper">

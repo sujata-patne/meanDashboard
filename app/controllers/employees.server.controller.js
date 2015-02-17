@@ -16,7 +16,6 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var employee = new Employee(req.body);
 	employee.user = req.user;
-
 	employee.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -75,7 +74,7 @@ exports.delete = function(req, res) {
  * List of Employees
  */
 exports.list = function(req, res) { 
-	Employee.find().sort('-created').populate('user', 'displayName').exec(function(err, employees) {
+	Employee.find().sort('-created').populate('user', 'displayName').populate('worksFor').populate('belongsTo').exec(function(err, employees) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -107,30 +106,26 @@ exports.hasAuthorization = function(req, res, next) {
 	}
 	next();
 };
-//get specified owners through function
-exports.organizationByName=function(req,res,next,name){
-	Organization.find({name:new RegExp(name, 'i')})
-		.exec(function(err, organization) {
-			if(err){
-				next(err);
-			}
-			if(organization){
-				req.belongsTo=res.jsonp(organization);
-				next();
-			}else{
-				console.log('organization not found');
-				res.status(400).send('organization not found');
 
-			}
+//get specified owners through function
+exports.organizationByID=function(req,res,next,id){
+	Organization.findById(id)
+		.exec(function(err, organization) {
+			if (err) return next(err);
+			if (! organization) return next(new Error('Failed to load Organization ' + id));
+			req.organization = organization ;
+			next();
 		});
 };
 //retrive specified owners
 exports.getOrganization=function(req,res){
-	res.send(req.belongsTo);
+	res.send(req.organization);
 };
 //get specified projects through function
-exports.projectsByName=function(req,res,next,name){
-	Project.find({name:new RegExp(name, 'i')})
+exports.getProjectsByOrganization=function(req,res,next,id){
+	var orgID = req.params.organizationID;
+	var project = req.params.project;
+	Project.find({belongsTo:orgID, name:new RegExp(project, 'i')})
 		.exec(function(err, projects) {
 			if(err){
 				next(err);

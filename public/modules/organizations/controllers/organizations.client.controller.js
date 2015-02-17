@@ -1,8 +1,8 @@
 'use strict';
 
 // Organizations controller
-angular.module('organizations').controller('OrganizationsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Organizations', 'Projects',
-	function($scope, $stateParams, $location, Authentication, Organizations, Projects) {
+angular.module('organizations').controller('OrganizationsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Organizations', 'Projects','Employees',
+	function($scope, $stateParams, $location, Authentication, Organizations, Projects, Employees) {
 		$scope.authentication = Authentication;
 
 		// Create new Organization
@@ -12,7 +12,8 @@ angular.module('organizations').controller('OrganizationsController', ['$scope',
 				name: this.name,
 				totalHeadCount: this.totalHeadCount,
 				benchHeadCount: this.benchHeadCount,
-				billableHeadCount: this.billableHeadCount
+				billableHeadCount: this.billableHeadCount,
+				owner: this.owner
 			});
 
 			// Redirect after save
@@ -46,6 +47,7 @@ angular.module('organizations').controller('OrganizationsController', ['$scope',
 		// Update existing Organization
 		$scope.update = function() {
 			var organization = $scope.organization;
+			console.log(organization);
 			organization.$update(function() {
 				$location.path('organizations/' + organization._id);
 			}, function(errorResponse) {
@@ -63,8 +65,11 @@ angular.module('organizations').controller('OrganizationsController', ['$scope',
 			$scope.organization = Organizations.get({ 
 				organizationId: $stateParams.organizationId
 			});
-
-
+			$scope.organization.$promise.then(function(organization){
+				//$scope.owners = Employees.query();
+				$scope.owners = organization.members;
+			})
+			//$scope.owners = Employee.query();
 			console.log($scope.organization);
 		};
 	}

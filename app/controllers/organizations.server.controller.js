@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Organization = mongoose.model('Organization'),
+	Employee = mongoose.model('Employee'),
 	_ = require('lodash');
 
 /**
@@ -73,7 +74,7 @@ exports.delete = function(req, res) {
  * List of Organizations
  */
 exports.list = function(req, res) { 
-	Organization.find().sort('-created').populate('user', 'displayName').exec(function(err, organizations) {
+	Organization.find().sort('-created').populate('user', 'displayName').populate('projects').populate('owner').populate('members').exec(function(err, organizations) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -94,6 +95,28 @@ exports.organizationByID = function(req, res, next, id) {
 		req.organization = organization ;
 		next();
 	});
+};
+//get specified owners through function
+exports.ownerByName=function(req,res,next,name){
+	Employee.find({firstName:new RegExp(name, 'i')})
+		.exec(function(err, employee) {
+			if(err){
+				next(err);
+			}
+
+			if(employee){
+				req.owner=res.jsonp(employee);
+				next();
+			}else{
+				console.log('Employee not found');
+				res.status(400).send('Employee not found');
+
+			}
+		});
+};
+//retrive specified owners
+exports.getOwner=function(req,res){
+	res.send(req.owner);
 };
 
 /**
