@@ -5,6 +5,21 @@ angular.module('organizations').controller('OrganizationsController', ['$scope',
 	function($scope, $stateParams, $location, Authentication, Organizations, Projects, Employees) {
 		$scope.authentication = Authentication;
 
+		$scope.getBenchHeadCount = function(){
+			if($scope.totalHeadCount > $scope.billableHeadCount || $scope.totalHeadCount == $scope.billableHeadCount){
+				$scope.benchHeadCount = parseInt($scope.totalHeadCount) - parseInt($scope.billableHeadCount);
+			}else{
+				$scope.benchHeadCount = '';
+			}
+		}
+		$scope.getBillableHeadCount = function(){
+			if($scope.totalHeadCount > $scope.benchHeadCount || $scope.totalHeadCount == $scope.benchHeadCount){
+				$scope.billableHeadCount = parseInt($scope.totalHeadCount) - parseInt($scope.benchHeadCount);
+			}else{
+				$scope.billableHeadCount = '';
+			}
+		}
+
 		// Create new Organization
 		$scope.create = function() {
 			// Create new Organization object
